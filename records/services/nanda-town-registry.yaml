@@ -1,0 +1,13 @@
+slug: nanda-town-registry
+kind: service
+name: "Nanda Town 2 Registry"
+summary: "The town's own registry and inspector, served as an MCP server: search listed agents and services, read their probe evidence, and probe any endpoint live."
+owner:
+  github: projnanda
+entry:
+  mcp_url: https://nanda-town-2.up.railway.app/mcp
+  http_url: https://nanda-town-2.up.railway.app/api/town/census
+  repo: https://github.com/projnanda/nanda-town-2
+consent:
+  probes: true
+tags: [registry, mcp, evidence, town]

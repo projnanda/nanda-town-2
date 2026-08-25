@@ -1,0 +1,22 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  records:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - name: Validate registry records
+        run: node scripts/validate-records.mjs
+      - name: Typecheck + build
+        run: npm run build
+        env:
+          SKIP_DB: "1"

@@ -1,0 +1,13 @@
+slug: nest-core
+kind: service
+name: "nest-core (Nanda Town simulator)"
+summary: "Project NANDA's local-first test rig for agent protocols: a 12-layer swappable stack, built-in scenarios, deterministic replayable traces. pip install nest-core."
+owner:
+  github: projnanda
+entry:
+  package:
+    pip: nest-core
+  repo: https://github.com/projnanda/nandatown
+consent:
+  probes: false
+tags: [simulator, testing, protocols, python]
