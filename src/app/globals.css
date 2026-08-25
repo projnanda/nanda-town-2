@@ -1,140 +1,123 @@
 @import "tailwindcss";
 
 /* ————————————————————————————————————————————————————————————————
-   Nanda Town 2 — "the surveyor's office"
-   Light = engineering survey paper. Dark = the blueprint at night.
+   Nanda Town 2 — warm, editorial. One fixed palette, like paper.
+   Cream surfaces · warm ink · a single rust accent · sage = alive.
    ———————————————————————————————————————————————————————————————— */
 
 :root {
-  --bg: #f3f6fa;
-  --card: #ffffff;
-  --card-2: #e9eef5;
-  --ink: #12263f;
-  --muted: #5a6b80;
-  --faint: #8b9aac;
-  --line: #c9d5e2;
-  --line-soft: #dde5ee;
-  --accent: #e8531f;
-  --accent-soft: #fbe3d9;
-  --alive: #1f9d66;
-  --alive-soft: #ddf1e7;
-  --warn: #b97f16;
-  --grid: rgba(18, 38, 63, 0.055);
-  --stamp: rgba(232, 83, 31, 0.09);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0b1b2e;
-    --card: #12253c;
-    --card-2: #182f4b;
-    --ink: #e6eef6;
-    --muted: #8da2b8;
-    --faint: #64788e;
-    --line: #23405e;
-    --line-soft: #1b3350;
-    --accent: #ff7847;
-    --accent-soft: #3a2417;
-    --alive: #43c088;
-    --alive-soft: #12352a;
-    --warn: #d8a13c;
-    --grid: rgba(230, 238, 246, 0.05);
-    --stamp: rgba(255, 120, 71, 0.12);
-  }
-}
-
-:root[data-theme="dark"] {
-  --bg: #0b1b2e;
-  --card: #12253c;
-  --card-2: #182f4b;
-  --ink: #e6eef6;
-  --muted: #8da2b8;
-  --faint: #64788e;
-  --line: #23405e;
-  --line-soft: #1b3350;
-  --accent: #ff7847;
-  --accent-soft: #3a2417;
-  --alive: #43c088;
-  --alive-soft: #12352a;
-  --warn: #d8a13c;
-  --grid: rgba(230, 238, 246, 0.05);
-  --stamp: rgba(255, 120, 71, 0.12);
+  --bg: #f0ede4;        /* cream-100, the page */
+  --card: #f7f5ef;      /* cream-50, raised */
+  --card-2: #e8e4d6;    /* cream-200 */
+  --hover: #ddd7c5;     /* cream-300 */
+  --ink: #141312;       /* warm near-black */
+  --muted: #57524a;
+  --faint: #8a8377;
+  --line: #c9c1ab;      /* cream-400 borders */
+  --line-soft: #ddd7c5;
+  --accent: #c45a3c;    /* rust */
+  --accent-light: #d77452;
+  --accent-soft: #f1dcd0;
+  --alive: #6b8559;     /* sage */
+  --alive-soft: #e6ebdd;
+  --warn: #b58432;      /* amber */
+  --stamp: rgba(196, 90, 60, 0.08);
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-card: var(--card);
   --color-card-2: var(--card-2);
+  --color-hover: var(--hover);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-faint: var(--faint);
   --color-line: var(--line);
   --color-line-soft: var(--line-soft);
   --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
   --color-accent-soft: var(--accent-soft);
   --color-alive: var(--alive);
   --color-alive-soft: var(--alive-soft);
   --color-warn: var(--warn);
-  --font-display: var(--font-bricolage);
-  --font-sans: var(--font-public-sans);
-  --font-mono: var(--font-plex-mono);
+  --font-display: var(--font-instrument);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background-color: var(--bg);
-  background-image:
-    linear-gradient(var(--grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background: var(--bg);
   color: var(--ink);
-  font-family: var(--font-public-sans), system-ui, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
+/* Display serif — Instrument only ships 400; the size does the talking. */
 .display {
-  font-family: var(--font-bricolage), Georgia, serif;
-  letter-spacing: -0.02em;
+  font-family: var(--font-instrument), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
   text-wrap: balance;
 }
 
-.mono {
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
+.display em,
+.serif-italic {
+  font-family: var(--font-instrument), Georgia, serif;
+  font-style: italic;
 }
 
+.mono {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+/* Tiny mono uppercase section markers (the old site's .eyebrow). */
 .survey-label {
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 0.68rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
+/* Subtle printed-paper dot grid, for hero sections. */
+.paper-texture {
+  background-image: radial-gradient(rgba(20, 19, 18, 0.045) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
 .stamp {
-  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: 0.66rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border: 1.5px solid var(--accent);
   color: var(--accent);
   background: var(--stamp);
-  padding: 2px 8px;
-  border-radius: 3px;
-  transform: rotate(-1deg);
+  padding: 2px 9px;
+  border-radius: 999px;
   display: inline-block;
 }
 
 .parcel {
   background: var(--card);
   border: 1px solid var(--line);
-  border-radius: 6px;
+  border-radius: 1rem;
 }
 
 .parcel-open {
   border: 1.5px dashed var(--line);
-  border-radius: 6px;
+  border-radius: 1rem;
   color: var(--faint);
 }
 
+.illus {
+  border: 1px solid var(--line);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  display: block;
+}
+.illus img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
 a { text-underline-offset: 3px; }
 
-::selection { background: var(--accent); color: #fff; }
+::selection { background: var(--accent); color: #fff6ef; }

@@ -16,7 +16,7 @@ export default function DocsPage() {
     <div className="mx-auto max-w-3xl px-5 pt-10 pb-10 space-y-10">
       <div>
         <div className="survey-label mb-2">documentation</div>
-        <h1 className="display text-3xl font-bold">How the town works</h1>
+        <h1 className="display text-4xl">How the town works</h1>
         <p className="text-muted text-sm mt-2 leading-relaxed">
           One registry, two kinds of records (agents and services), three doors (list, mount,
           fork). The registry&apos;s source of truth is the git repo{" "}
@@ -28,7 +28,7 @@ export default function DocsPage() {
       </div>
 
       <section className="space-y-3">
-        <h2 className="display text-xl font-semibold">For agents: mount the registry (MCP)</h2>
+        <h2 className="display text-[1.5rem]">For agents: mount the registry (MCP)</h2>
         <p className="text-sm text-muted leading-relaxed">
           The town is itself an MCP server (streamable HTTP, stateless, no auth for reads).
           Add it to Claude Code, Cursor, or any MCP client:
@@ -62,7 +62,7 @@ claude mcp add --transport http nanda-town-2 ${site}/mcp
       </section>
 
       <section className="space-y-3">
-        <h2 className="display text-xl font-semibold">REST API</h2>
+        <h2 className="display text-[1.5rem]">REST API</h2>
         <Code>{`GET ${site}/api/town/census
 GET ${site}/api/town/records
 GET ${site}/api/town/records?kind=agent
@@ -71,7 +71,7 @@ POST ${site}/api/inspect                   # {"url": "...", "type": "auto|mcp|a2
       </section>
 
       <section className="space-y-3">
-        <h2 className="display text-xl font-semibold">Listing: the record file</h2>
+        <h2 className="display text-[1.5rem]">Listing: the record file</h2>
         <p className="text-sm text-muted leading-relaxed">
           One YAML file per record at <span className="mono text-ink">records/agents/&lt;slug&gt;.yaml</span> or{" "}
           <span className="mono text-ink">records/services/&lt;slug&gt;.yaml</span>. A PR is the gate;
@@ -95,7 +95,7 @@ tags: [payments, mcp]`}</Code>
       </section>
 
       <section className="space-y-3" id="pulse">
-        <h2 className="display text-xl font-semibold">The pulse (how probing works)</h2>
+        <h2 className="display text-[1.5rem]">The pulse (how probing works)</h2>
         <ul className="text-sm text-muted space-y-1.5 list-disc list-inside leading-relaxed">
           <li>Only listed records with <span className="mono text-ink">consent.probes: true</span> are probed — listing a URL is consenting.</li>
           <li>Cadence: every 6 hours, plus a run at each deploy. Ports 80/443 only; private and internal addresses are refused at the socket level.</li>
@@ -107,7 +107,7 @@ tags: [payments, mcp]`}</Code>
       </section>
 
       <section className="space-y-3">
-        <h2 className="display text-xl font-semibold">Evidence rules</h2>
+        <h2 className="display text-[1.5rem]">Evidence rules</h2>
         <ul className="text-sm text-muted space-y-1.5 list-disc list-inside leading-relaxed">
           <li>One evidence record = one observer, about one subject (an exact record fingerprint), at one time.</li>
           <li>A record never writes its own evidence.</li>
@@ -117,7 +117,7 @@ tags: [payments, mcp]`}</Code>
       </section>
 
       <section className="space-y-3">
-        <h2 className="display text-xl font-semibold">Who runs this</h2>
+        <h2 className="display text-[1.5rem]">Who runs this</h2>
         <p className="text-sm text-muted leading-relaxed">
           Nanda Town 2 is an open-source project by <span className="text-ink">Project NANDA</span>{" "}
           (Foundation for Agentic Networks); the NANDA effort started as research at MIT Media

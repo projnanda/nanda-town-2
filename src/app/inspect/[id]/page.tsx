@@ -17,7 +17,7 @@ export default async function InspectionPage({ params }: { params: Promise<{ id:
   return (
     <div className="mx-auto max-w-4xl px-5 pt-10 pb-10">
       <div className="survey-label mb-2">inspection report · {report.id}</div>
-      <h1 className="display text-2xl sm:text-3xl font-bold break-all">{report.targetUrl}</h1>
+      <h1 className="display text-2xl sm:text-3xl break-all">{report.targetUrl}</h1>
       <div className="mono text-[0.72rem] text-faint mt-2 flex flex-wrap gap-x-5 gap-y-1">
         <span>observer {report.observer}</span>
         <span>observed {new Date(report.observedAt).toUTCString()}</span>

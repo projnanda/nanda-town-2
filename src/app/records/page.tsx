@@ -27,7 +27,7 @@ export default async function RecordsPage({
   return (
     <div className="mx-auto max-w-6xl px-5 pt-10">
       <div className="survey-label mb-2">the registry</div>
-      <h1 className="display text-3xl font-bold">Records</h1>
+      <h1 className="display text-4xl">Records</h1>
       <p className="text-muted text-sm mt-1.5 max-w-2xl">
         Every record is a YAML file in a public git repo, claimed by a GitHub identity, probed on
         a schedule with its consent. Dot = latest probe observation

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
 const REPO = process.env.NEXT_PUBLIC_RECORDS_REPO ?? "projnanda/nanda-town-2";
@@ -50,12 +51,12 @@ export default function ListPage() {
   }, [kind, effSlug, yaml]);
 
   const input =
-    "mono text-sm w-full rounded border border-line bg-bg px-3 py-2 outline-none focus:border-accent placeholder:text-faint";
+    "mono text-sm w-full rounded-lg border border-line bg-bg px-3 py-2 outline-none focus:border-accent placeholder:text-faint";
 
   return (
     <div className="mx-auto max-w-6xl px-5 pt-10 pb-10">
       <div className="survey-label mb-2">open a plot</div>
-      <h1 className="display text-3xl font-bold">List an agent or a service</h1>
+      <h1 className="display text-4xl">List an agent or a service</h1>
       <p className="text-muted text-sm mt-2 max-w-2xl leading-relaxed">
         A listing is one YAML file in a public git repo. Fill this in, and the button opens a
         pre-filled pull request on GitHub — <span className="text-ink">GitHub is the
@@ -75,7 +76,7 @@ export default function ListPage() {
                   key={k}
                   type="button"
                   onClick={() => setKind(k)}
-                  className={`mono text-[0.75rem] uppercase tracking-widest px-4 py-2 rounded border ${
+                  className={`mono text-[0.75rem] uppercase tracking-widest px-4 py-2 rounded-full border ${
                     kind === k ? "border-accent text-accent bg-accent-soft" : "border-line text-muted"
                   }`}
                 >
@@ -121,7 +122,7 @@ export default function ListPage() {
                   key={v}
                   type="button"
                   onClick={() => setEntryType(v)}
-                  className={`mono text-[0.7rem] uppercase tracking-wider px-3 py-1.5 rounded border ${
+                  className={`mono text-[0.7rem] uppercase tracking-wider px-3 py-1.5 rounded-full border ${
                     entryType === v ? "border-accent text-accent bg-accent-soft" : "border-line text-muted"
                   }`}
                 >
@@ -146,6 +147,14 @@ export default function ListPage() {
 
         {/* preview + submit */}
         <div className="space-y-4">
+          <div className="illus aspect-[16/7] hidden lg:block">
+            <Image
+              src="/illustrations/img_05_marketplace.jpg"
+              alt="Ink-and-wash drawing of a marketplace of connected stalls"
+              width={1000}
+              height={440}
+            />
+          </div>
           <div>
             <div className="survey-label mb-1.5">your record file</div>
             <pre className="parcel p-4 mono text-[0.78rem] leading-relaxed overflow-x-auto whitespace-pre">{yaml}</pre>
@@ -154,7 +163,7 @@ export default function ListPage() {
             href={prUrl}
             target="_blank"
             rel="noreferrer"
-            className="mono block text-center text-sm uppercase tracking-wider rounded bg-accent text-white px-5 py-3 hover:opacity-90"
+            className="mono block text-center text-[0.78rem] uppercase tracking-[0.14em] rounded-full bg-accent text-[#fff6ef] px-5 py-3 hover:bg-accent-light transition-colors"
           >
             Open the pull request on GitHub →
           </a>

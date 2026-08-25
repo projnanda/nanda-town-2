@@ -39,7 +39,7 @@ export default async function RecordPage({ params }: { params: Promise<{ slug: s
         record · {rec.kind} · parcel {rec.slug}
       </div>
       <div className="flex items-start justify-between gap-4 flex-wrap">
-        <h1 className="display text-3xl font-bold">{rec.name}</h1>
+        <h1 className="display text-4xl">{rec.name}</h1>
         <StateDot
           state={latest ? String((latest.outcome as Record<string, unknown>).state) : undefined}
           pulseStale={pulse.stale}

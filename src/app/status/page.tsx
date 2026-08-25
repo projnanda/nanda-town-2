@@ -14,7 +14,7 @@ export default async function StatusPage() {
   return (
     <div className="mx-auto max-w-3xl px-5 pt-10 pb-10">
       <div className="survey-label mb-2">operational honesty</div>
-      <h1 className="display text-3xl font-bold">Status</h1>
+      <h1 className="display text-4xl">Status</h1>
       <p className="text-muted text-sm mt-2 max-w-xl leading-relaxed">
         The town&apos;s own vitals, reported with the same rules it applies to everyone else. If
         the pulse is paused, every liveness indicator on this site says so.

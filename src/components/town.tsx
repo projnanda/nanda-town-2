@@ -53,7 +53,7 @@ export function RecordCard({ r, pulseStale }: { r: RecordWithLiveness; pulseStal
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-baseline gap-2 flex-wrap">
-            <span className="display font-semibold text-[1.05rem] truncate">{r.name}</span>
+            <span className="display text-[1.2rem] truncate">{r.name}</span>
             <span className="mono text-[0.65rem] uppercase tracking-widest text-faint border border-line rounded px-1.5 py-0.5">
               {r.kind}
             </span>
