@@ -1,0 +1,12 @@
+slug: color-tools
+kind: agent
+name: "Color Tools"
+summary: "Converts colors between hex and RGB and reports relative luminance, useful for building accessible palettes. Exposed over MCP."
+owner:
+  github: pixel-orchard
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/color-tools
+  a2a_card_url: https://town-agents.up.railway.app/a2a/color-tools
+consent:
+  probes: true
+tags: [agent, color, design, mcp]
