@@ -42,7 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <header className="border-b border-line bg-card/85 backdrop-blur-sm sticky top-0 z-20">
-          <div className="mx-auto max-w-6xl px-5 h-14 flex items-center justify-between gap-4">
+          <div className="mx-auto max-w-6xl px-5 min-h-14 py-2 flex items-center justify-between gap-x-4 gap-y-1 flex-wrap">
             <Link href="/" className="flex items-center gap-2.5 shrink-0">
               <Image src="/brand/nest-logo.png" alt="" width={30} height={30} className="opacity-90" />
               <span className="display text-[1.35rem] leading-none">Nanda Town</span>
@@ -50,7 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 2
               </span>
             </Link>
-            <nav className="flex items-center gap-1 overflow-x-auto">
+            <nav className="flex items-center gap-1 flex-wrap justify-end">
               {nav.map((n) => (
                 <Link
                   key={n.href}

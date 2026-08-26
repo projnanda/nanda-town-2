@@ -10,9 +10,17 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { parse as parseYaml } from "yaml";
 import { db, schema } from "@/db/client";
-import { inArray, notInArray, sql } from "drizzle-orm";
+import { notInArray, sql } from "drizzle-orm";
 
 const slugRe = /^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$/;
+
+/**
+ * Cheap shape check used before any slug reaches the database. Postgres rejects
+ * null bytes outright, so an unvalidated slug turns a "not found" into a 500.
+ */
+export function isValidSlug(s: unknown): boolean {
+  return typeof s === "string" && slugRe.test(s);
+}
 const httpsUrl = z.url().max(300).refine((u) => u.startsWith("https://") || u.startsWith("http://"), "must be http(s)");
 
 export const RecordSchema = z
@@ -130,8 +138,29 @@ export async function loadFromGitHub(repo: string): Promise<ParsedFile[] | null>
 
 /** Full reconcile: upsert everything in the snapshot, delist everything absent from it. */
 export async function reconcile(parsed: ParsedFile[], source: string): Promise<{ upserted: number; delisted: number; invalid: string[] }> {
-  const valid = parsed.filter((p): p is ParsedFile & { record: TownRecord } => !!p.record);
+  const parsedOk = parsed.filter((p): p is ParsedFile & { record: TownRecord } => !!p.record);
   const invalid = parsed.filter((p) => p.errors.length).map((p) => `${p.file}: ${p.errors[0]}`);
+
+  // Slug is the primary key, so two files claiming one slug would overwrite each
+  // other and the winner would depend on directory read order. That is a slug
+  // takeover waiting to happen, so publish neither and report the collision:
+  // an ambiguous record is worse than a missing one.
+  const byslug = new Map<string, (ParsedFile & { record: TownRecord })[]>();
+  for (const p of parsedOk) {
+    const list = byslug.get(p.record.slug) ?? [];
+    list.push(p);
+    byslug.set(p.record.slug, list);
+  }
+  const valid: (ParsedFile & { record: TownRecord })[] = [];
+  for (const [slug, files] of byslug) {
+    if (files.length > 1) {
+      invalid.push(
+        `duplicate slug "${slug}" declared by ${files.map((f) => f.file).join(" and ")} — none listed`,
+      );
+      continue;
+    }
+    valid.push(files[0]);
+  }
   const slugs = valid.map((p) => p.record.slug);
 
   for (const { record } of valid) {
@@ -178,13 +207,5 @@ export async function reconcile(parsed: ParsedFile[], source: string): Promise<{
       .returning({ slug: schema.records.slug });
     delisted = res.length;
   }
-  // Re-list anything that reappeared (covered by upsert above via status: "listed").
-  if (slugs.length > 0) {
-    await db
-      .update(schema.records)
-      .set({ status: "listed" })
-      .where(inArray(schema.records.slug, slugs));
-  }
-
   return { upserted: valid.length, delisted, invalid };
 }

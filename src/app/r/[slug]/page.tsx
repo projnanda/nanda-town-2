@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { and, desc, eq } from "drizzle-orm";
 import { db, schema } from "@/db/client";
 import { pulseStatus } from "@/lib/pulse";
+import { isValidSlug } from "@/lib/records";
 import { OutcomeCard, StateDot, timeAgo } from "@/components/town";
 import type { ProbeOutcome } from "@/lib/probes";
 
@@ -9,6 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default async function RecordPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  if (!isValidSlug(slug)) notFound();
   const [rec] = await db.select().from(schema.records).where(eq(schema.records.slug, slug));
   if (!rec || rec.status !== "listed") notFound();
 

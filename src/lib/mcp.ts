@@ -6,6 +6,7 @@
 import { census, listRecords } from "./census";
 import { runInspection, type InspectType } from "./inspect";
 import { db, schema } from "@/db/client";
+import { isValidSlug } from "./records";
 import { and, desc, eq } from "drizzle-orm";
 
 const PROTOCOL = "2025-06-18";
@@ -94,6 +95,7 @@ async function callTool(name: string, args: Record<string, unknown>, allowInspec
     }
     case "get_record": {
       const slug = String(args.slug ?? "");
+      if (!isValidSlug(slug)) return text({ error: `no listed record with slug "${slug.slice(0, 80)}"` });
       const [rec] = await db.select().from(schema.records).where(eq(schema.records.slug, slug));
       if (!rec || rec.status !== "listed") return text({ error: `no listed record with slug "${slug}"` });
       const ev = await db
@@ -164,8 +166,11 @@ export async function handleMcpMessage(msg: Rpc, allowInspect: () => boolean): P
         if (result === null) return rpcErr(msg.id, -32602, `unknown tool: ${name}`);
         return ok(msg.id, result);
       } catch (e) {
+        // Log the detail server-side; never echo internal error text (which can
+        // carry query structure) back to the caller.
+        console.error(`[mcp] tool ${name} failed:`, e);
         return ok(msg.id, {
-          content: [{ type: "text", text: `tool error: ${e instanceof Error ? e.message : "unknown"}` }],
+          content: [{ type: "text", text: `tool "${name}" failed to complete` }],
           isError: true,
         });
       }
