@@ -1,44 +1,27 @@
-import Link from "next/link";
 import Image from "next/image";
 import { census, listRecords } from "@/lib/census";
-import { RecordCard } from "@/components/town";
+import { Directory } from "@/components/directory";
 
 export const dynamic = "force-dynamic";
 
-export default async function RecordsPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ kind?: string }>;
-}) {
-  const { kind: kindParam } = await searchParams;
-  const kind = kindParam === "agent" || kindParam === "service" ? kindParam : undefined;
-  const [records, c] = await Promise.all([listRecords(kind), census()]);
-
-  const tab = (href: string, label: string, active: boolean) => (
-    <Link
-      href={href}
-      className={`mono text-[0.72rem] uppercase tracking-widest px-3 py-1.5 rounded border ${
-        active ? "border-accent text-accent bg-accent-soft" : "border-line text-muted hover:text-ink"
-      }`}
-    >
-      {label}
-    </Link>
-  );
+export default async function RecordsPage() {
+  const [records, c] = await Promise.all([listRecords(), census()]);
 
   return (
     <div className="mx-auto max-w-6xl px-5 pt-10">
       <div className="survey-label mb-2">the registry</div>
-      <h1 className="display text-4xl">Records</h1>
+      <h1 className="display text-4xl">Directory</h1>
       <p className="text-muted text-sm mt-1.5 max-w-2xl">
-        Each record is a YAML file in a public repository, owned by a named GitHub account and,
-        with consent, probed on a schedule. The dot shows the most recent probe result
+        Every registered agent and service, browsable by category. Each record is a YAML file in a
+        public repository, owned by a named GitHub account and, with consent, probed on a schedule.
+        The dot shows the most recent probe result
         {c.pulse.stale && (
           <span className="text-accent">; the prober has not run on schedule, so these are not current</span>
         )}
         .
       </p>
 
-      <div className="illus aspect-[16/4] mt-6">
+      <div className="illus aspect-[16/4] mt-6 mb-7">
         <Image
           src="/illustrations/main-street.jpg"
           alt="Abstract row of storefront façades in cream and terracotta on a charcoal baseline"
@@ -47,26 +30,11 @@ export default async function RecordsPage({
         />
       </div>
 
-      <div className="flex gap-2 mt-6 mb-6">
-        {tab("/records", "all", !kind)}
-        {tab("/records?kind=agent", `agents · ${c.agents}`, kind === "agent")}
-        {tab("/records?kind=service", `services · ${c.services}`, kind === "service")}
-      </div>
-
-      {records.length === 0 ? (
-        <div className="parcel-open p-10 text-center">
-          <p className="mono text-sm text-muted">no {kind ?? ""} records yet — the plots are open</p>
-          <Link href="/list" className="mono text-[0.72rem] uppercase tracking-widest text-accent mt-2 inline-block">
-            open a plot →
-          </Link>
-        </div>
-      ) : (
-        <div className="grid sm:grid-cols-2 gap-3 pb-10">
-          {records.map((r) => (
-            <RecordCard key={r.slug} r={r} pulseStale={c.pulse.stale} />
-          ))}
-        </div>
-      )}
+      <Directory
+        records={records}
+        pulseStale={c.pulse.stale}
+        counts={{ agents: c.agents, services: c.services }}
+      />
     </div>
   );
 }
