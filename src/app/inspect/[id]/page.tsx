@@ -42,14 +42,14 @@ export default async function InspectionPage({ params }: { params: Promise<{ id:
       </div>
 
       <div className="mt-8 parcel p-4 bg-card-2 text-sm leading-relaxed">
-        <div className="survey-label mb-1.5">what this is</div>
+        <div className="survey-label mb-1.5">scope of this report</div>
         <p className="text-muted">{report.note}</p>
         <p className="text-muted mt-2">
-          Want this endpoint probed on a schedule with a public history?{" "}
+          To have this endpoint probed on a schedule, with a published history,{" "}
           <Link href="/list" className="underline decoration-line hover:decoration-accent text-ink">
             Open a plot
-          </Link>{" "}
-          — listing is a pull request, and listing means consenting to probes.
+          </Link>
+          . Listings are submitted by pull request, and a listed URL consents to probing.
         </p>
       </div>
     </div>

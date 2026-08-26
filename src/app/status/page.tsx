@@ -14,11 +14,12 @@ export default async function StatusPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-5 pt-10 pb-10">
-      <div className="survey-label mb-2">operational honesty</div>
+      <div className="survey-label mb-2">prober status</div>
       <h1 className="display text-4xl">Status</h1>
       <p className="text-muted text-sm mt-2 max-w-xl leading-relaxed">
-        The town&apos;s own vitals, reported with the same rules it applies to everyone else. If
-        the pulse is paused, every liveness indicator on this site says so.
+        Listed endpoints that have consented are probed on a schedule. This page reports whether
+        the prober has run as scheduled. When it has not, liveness indicators elsewhere on the
+        site are marked paused.
       </p>
 
       <div className="illus aspect-[16/5] mt-5">

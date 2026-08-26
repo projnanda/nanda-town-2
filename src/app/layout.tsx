@@ -74,12 +74,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <footer className="border-t border-line mt-16 bg-card">
           <div className="mx-auto max-w-6xl px-5 py-8 flex flex-wrap gap-x-8 gap-y-2 items-baseline">
-            <span className="survey-label">Nanda Town 2 — a town under survey</span>
+            <span className="survey-label">Nanda Town 2</span>
             <span className="mono text-[0.7rem] text-faint">
               an open project by Project NANDA · Foundation for Agentic Networks
             </span>
             <span className="mono text-[0.7rem] text-faint">
-              every number on this site is a timestamped observation
+              registry data and probe records are public · Apache 2.0
             </span>
           </div>
         </footer>

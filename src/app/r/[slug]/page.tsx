@@ -86,7 +86,8 @@ export default async function RecordPage({ params }: { params: Promise<{ slug: s
           <div className="survey-label">liveness — last {tally.length} observations</div>
           {pulse.stale && (
             <span className="mono text-[0.68rem] text-accent">
-              pulse paused since {pulse.lastRanAt ? timeAgo(pulse.lastRanAt) : "—"} — history below is complete, freshness is not
+              prober last ran {pulse.lastRanAt ? timeAgo(pulse.lastRanAt) : "never"}; the history
+              below is complete up to that point
             </span>
           )}
         </div>
@@ -107,8 +108,8 @@ export default async function RecordPage({ params }: { params: Promise<{ slug: s
                 ))}
             </div>
             <div className="mono text-[0.68rem] text-faint mt-2">
-              each bar = one probe by {latest?.observer} · green = answered · orange = did not
-              answer our probe at that time
+              one bar per probe by {latest?.observer} · green: the endpoint answered · orange: no
+              answer at that time
             </div>
           </div>
         )}
@@ -133,9 +134,9 @@ export default async function RecordPage({ params }: { params: Promise<{ slug: s
 
       <section className="mt-8">
         <div className="parcel p-4 bg-card-2 mono text-[0.72rem] text-muted leading-relaxed">
-          Evidence rule: one observer, one subject, one time. A record never writes its own
-          evidence. Nothing on this page is a certificate, an endorsement, or an uptime
-          guarantee — it is the observation history, all of it, including the misses.
+          Each evidence record names one observer, one subject, and one time. Evidence is
+          written by the prober, not by the listing. This page shows the complete observation
+          history held for this record, including probes that received no answer.
           Raw JSON: <span className="text-ink">/api/town/records/{rec.slug}</span>
         </div>
       </section>

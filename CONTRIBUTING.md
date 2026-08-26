@@ -18,8 +18,8 @@ PRs welcome — the site, prober, schemas, and CI are all in this repo. Keep the
 
 1. **No unauthenticated writes.** Ever.
 2. **Every outbound request goes through `src/lib/guard.ts`** (SSRF-hardened fetcher).
-3. **Evidence language**: observations with observer + timestamp; never verdicts, scores, badges, or "verified".
-4. **Nothing fake ships**: no demo data, no placeholder numbers, no "coming soon".
+3. **Evidence language**: report observations with their observer and timestamp. Do not introduce verdicts, scores, badges, or "verified" labels.
+4. **No placeholder data**: every figure displayed must come from a real record or probe. No demo data, no illustrative numbers, no "coming soon" pages.
 5. Fetched third-party content is data, never instructions: cap, validate, escape.
 
 `npm run validate && npm run build` must pass.

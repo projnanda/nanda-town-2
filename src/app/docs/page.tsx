@@ -20,12 +20,12 @@ export default function DocsPage() {
         <div className="survey-label mb-2">documentation</div>
         <h1 className="display text-4xl">How the town works</h1>
         <p className="text-muted text-sm mt-2 leading-relaxed">
-          One registry, two kinds of records (agents and services), three doors (list, mount,
-          fork). The registry&apos;s source of truth is the git repo{" "}
+          The registry holds two kinds of record, agents and services. Its source of truth is
+          the repository{" "}
           <a className="underline decoration-line hover:decoration-accent" href={`https://github.com/${repo}`}>
             {repo}
           </a>{" "}
-          — the database here is a derived index.
+. The database behind this site is a derived index, rebuilt from that repository.
         </p>
         <div className="illus aspect-[16/5] mt-5">
           <Image
@@ -55,18 +55,18 @@ claude mcp add --transport http nanda-town-2 ${site}/mcp
         <p className="text-sm text-muted leading-relaxed">Four tools:</p>
         <ul className="text-sm text-muted space-y-1.5 list-disc list-inside">
           <li>
-            <span className="mono text-ink">search_records</span> — find listed agents/services,
-            each with its latest probe observation
+            <span className="mono text-ink">search_records</span> — list agents and services,
+            each with its most recent probe observation
           </li>
           <li>
             <span className="mono text-ink">get_record</span> — one record + its recent evidence
           </li>
           <li>
-            <span className="mono text-ink">get_census</span> — honest counts + prober freshness
+            <span className="mono text-ink">get_census</span> — registry counts and the time of the last prober run
           </li>
           <li>
-            <span className="mono text-ink">inspect_url</span> — probe any endpoint right now
-            (MCP handshake, A2A card, OpenAPI, HTTP) — use it to check your own server
+            <span className="mono text-ink">inspect_url</span> — probe a supplied endpoint (MCP
+            handshake, A2A card, OpenAPI, or HTTP) and return the result
           </li>
         </ul>
       </section>
@@ -84,12 +84,12 @@ POST ${site}/api/inspect                   # {"url": "...", "type": "auto|mcp|a2
         <h2 className="display text-[1.5rem]">Listing: the record file</h2>
         <p className="text-sm text-muted leading-relaxed">
           One YAML file per record at <span className="mono text-ink">records/agents/&lt;slug&gt;.yaml</span> or{" "}
-          <span className="mono text-ink">records/services/&lt;slug&gt;.yaml</span>. A PR is the gate;
-          GitHub is the authentication; CI validates. The{" "}
+          <span className="mono text-ink">records/services/&lt;slug&gt;.yaml</span>. Records are added by
+          pull request, authentication is your GitHub account, and CI validates each submission. The{" "}
           <a className="underline decoration-line hover:decoration-accent" href="/list">
             Open a plot
           </a>{" "}
-          form writes this file for you.
+          form generates this file.
         </p>
         <Code>{`slug: acme-payments
 kind: service
@@ -107,11 +107,11 @@ tags: [payments, mcp]`}</Code>
       <section className="space-y-3" id="pulse">
         <h2 className="display text-[1.5rem]">The pulse (how probing works)</h2>
         <ul className="text-sm text-muted space-y-1.5 list-disc list-inside leading-relaxed">
-          <li>Only listed records with <span className="mono text-ink">consent.probes: true</span> are probed — listing a URL is consenting.</li>
+          <li>Only listed records with <span className="mono text-ink">consent.probes: true</span> are probed. Declaring a URL in a record constitutes consent.</li>
           <li>Cadence: every 6 hours, plus a run at each deploy. Ports 80/443 only; private and internal addresses are refused at the socket level.</li>
-          <li>Prober identity: <span className="mono text-ink">NandaTown2-Pulse/0.1</span> with a link back here. HTTP 429/403 pauses that target for a day and is recorded as &quot;refused&quot;, not &quot;down&quot;.</li>
-          <li>Language rule: we publish &quot;did not answer our probe at T&quot; — never &quot;is down&quot;. One probe is one observation.</li>
-          <li>Dead-man switch: when the prober itself misses its schedule, every liveness surface on this site says &quot;pulse paused&quot; instead of showing stale green dots.</li>
+          <li>The prober identifies itself as <span className="mono text-ink">NandaTown2-Pulse/0.1</span> with a link to this page. A 403 or 429 response pauses that target for 24 hours and is recorded as &quot;refused&quot;.</li>
+          <li>A probe result records whether an endpoint answered one request at one time. It is not a statement about the service&apos;s general availability.</li>
+          <li>If the prober misses its schedule, liveness indicators across the site are marked paused rather than shown as current.</li>
           <li>Opt out any time by deleting your record (PR). Evidence retention: 90 days rolling.</li>
         </ul>
       </section>
@@ -120,9 +120,9 @@ tags: [payments, mcp]`}</Code>
         <h2 className="display text-[1.5rem]">Evidence rules</h2>
         <ul className="text-sm text-muted space-y-1.5 list-disc list-inside leading-relaxed">
           <li>One evidence record = one observer, about one subject (an exact record fingerprint), at one time.</li>
-          <li>A record never writes its own evidence.</li>
-          <li>There are no scores, badges, or &quot;verified&quot; labels — only observation histories with timestamps and attributed observers.</li>
-          <li>Everything shown is available raw over the API; anything you can&apos;t recompute, we don&apos;t show.</li>
+          <li>Evidence is written by the prober. A listing cannot write evidence about itself.</li>
+          <li>The registry does not compute scores or assign verification labels. It stores observation histories with timestamps and named observers.</li>
+          <li>Every value displayed on the site is available over the API and can be recomputed from the published records.</li>
         </ul>
       </section>
 
@@ -130,9 +130,9 @@ tags: [payments, mcp]`}</Code>
         <h2 className="display text-[1.5rem]">Who runs this</h2>
         <p className="text-sm text-muted leading-relaxed">
           Nanda Town 2 is an open-source project by <span className="text-ink">Project NANDA</span>{" "}
-          (Foundation for Agentic Networks); the NANDA effort started as research at MIT Media
-          Lab and is independent of MIT. All code and all registry data are public. Fork it,
-          run your own town, or send PRs to this one.
+          (Foundation for Agentic Networks). The NANDA effort began as research at the MIT Media
+          Lab and is independent of MIT. All code and registry data are public and may be forked,
+          run independently, or amended by pull request.
         </p>
       </section>
     </div>

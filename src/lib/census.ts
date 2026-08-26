@@ -12,7 +12,7 @@ export interface Census {
   asOf: string;
 }
 
-/** Honest numbers only: everything here is recomputable from public data. */
+/** Every value here is recomputable from the published records. */
 export async function census(): Promise<Census> {
   const counts = await db
     .select({ kind: schema.records.kind, n: sql<number>`count(*)::int` })

@@ -90,14 +90,14 @@ export function CensusStrip({ c }: { c: Census }) {
     <div className="parcel px-5 py-4 flex flex-wrap gap-x-10 gap-y-4 items-end">
       {item("agents listed", c.agents)}
       {item("services listed", c.services)}
-      {item("answered probes · 7d", `${c.answeredLast7d}/${c.probedLast7d}`)}
-      {item("observations on file", c.observations)}
+      {item("answered a probe · 7d", `${c.answeredLast7d}/${c.probedLast7d}`)}
+      {item("probe records held", c.observations)}
       <div className="flex flex-col gap-0.5">
         <span className={`mono text-xl font-medium ${c.pulse.stale ? "text-accent" : "text-alive"}`}>
-          {c.pulse.stale ? "paused" : "beating"}
+          {c.pulse.stale ? "paused" : "running"}
         </span>
         <span className="survey-label">
-          pulse · {c.pulse.lastRanAt ? timeAgo(c.pulse.lastRanAt) : "no runs yet"}
+          prober · {c.pulse.lastRanAt ? `last ran ${timeAgo(c.pulse.lastRanAt)}` : "no runs yet"}
         </span>
       </div>
     </div>
@@ -206,7 +206,7 @@ export function PlatMap({ records, pulseStale }: { records: RecordWithLiveness[]
     <div className="parcel p-5 sm:p-6">
       <div className="flex items-baseline justify-between flex-wrap gap-2 mb-4">
         <span className="survey-label">plat of survey — nanda town 2</span>
-        <span className="mono text-[0.65rem] text-faint">parcels = real records · dashed = open</span>
+        <span className="mono text-[0.65rem] text-faint">each parcel is a listed record; dashed outlines are unclaimed</span>
       </div>
 
       <div className="survey-label mb-2">services</div>

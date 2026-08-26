@@ -58,11 +58,12 @@ export default function ListPage() {
       <div className="survey-label mb-2">open a plot</div>
       <h1 className="display text-4xl">List an agent or a service</h1>
       <p className="text-muted text-sm mt-2 max-w-2xl leading-relaxed">
-        A listing is one YAML file in a public git repo. Fill this in, and the button opens a
-        pre-filled pull request on GitHub — <span className="text-ink">GitHub is the
-        authentication</span>; there are no accounts here. CI validates the schema and dry-runs a
-        probe on your PR. Merged means listed. <span className="text-ink">Listing a live URL means
-        consenting to scheduled probes</span>, and your probe history is public.
+        A listing is one YAML file in a public repository. Completing this form generates the
+        file and opens a pre-filled pull request on GitHub; authentication is your GitHub
+        account, and the site holds no accounts of its own. CI validates the schema and runs a
+        trial probe against the submitted URL. Once the pull request is merged, the record is
+        listed. <span className="text-ink">A record that declares a live URL consents to scheduled
+        probing</span>, and its probe history is public.
       </p>
 
       <div className="grid lg:grid-cols-2 gap-6 mt-7">
@@ -134,7 +135,7 @@ export default function ListPage() {
               <input className={input} value={entryValue} onChange={(e) => setEntryValue(e.target.value)} placeholder="https://…" maxLength={300} />
             ) : (
               <p className="mono text-[0.72rem] text-muted">
-                Add a SKILL.md next to your record file in the same PR. No URL → no probes.
+                Add a SKILL.md alongside the record file in the same pull request. A record without a URL is not probed.
               </p>
             )}
           </div>
@@ -170,20 +171,20 @@ export default function ListPage() {
           <div className="parcel p-4 bg-card-2 text-[0.82rem] text-muted leading-relaxed">
             <div className="survey-label mb-1.5">what happens next</div>
             <ol className="list-decimal list-inside space-y-1">
-              <li>GitHub asks you to sign in (that&apos;s the authentication) and opens a PR.</li>
-              <li>CI validates the schema and dry-runs a probe against your URL.</li>
-              <li>A maintainer merges. The site reconciles from the repo within minutes.</li>
-              <li>The pulse probes your endpoint on a schedule; your history goes public.</li>
-              <li>Delist any time: delete your file in a PR. History stays in git.</li>
+              <li>GitHub asks you to sign in, which serves as authentication, and opens the pull request.</li>
+              <li>CI validates the schema and runs a trial probe against the URL.</li>
+              <li>A maintainer merges the pull request. The site reconciles from the repository within minutes.</li>
+              <li>The prober begins probing the endpoint on schedule, and the results are published.</li>
+              <li>To delist, delete the file by pull request. The history remains in the repository.</li>
             </ol>
           </div>
           <div className="parcel p-4 text-[0.82rem] text-muted leading-relaxed">
             <div className="survey-label mb-1.5">who can list</div>
             <p>
-              Anyone — a student&apos;s weekend agent, a startup&apos;s MCP server, an
-              enterprise&apos;s A2A endpoint, or just a SKILL.md that teaches agents to use an
-              API you already have. Same file, same gate, same evidence rules for everyone. No
-              fees, no fast lane.
+              Anyone. A record may describe an individual&apos;s agent, a company&apos;s MCP
+              server, an A2A endpoint, or a SKILL.md describing an existing API. The submission
+              process, validation, and probing rules are identical for every listing, and there
+              is no fee.
             </p>
           </div>
         </div>

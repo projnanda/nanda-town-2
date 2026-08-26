@@ -30,10 +30,10 @@ export default async function RecordsPage({
       <div className="survey-label mb-2">the registry</div>
       <h1 className="display text-4xl">Records</h1>
       <p className="text-muted text-sm mt-1.5 max-w-2xl">
-        Every record is a YAML file in a public git repo, claimed by a GitHub identity, probed on
-        a schedule with its consent. Dot = latest probe observation
+        Each record is a YAML file in a public repository, owned by a named GitHub account and,
+        with consent, probed on a schedule. The dot shows the most recent probe result
         {c.pulse.stale && (
-          <span className="text-accent"> — pulse currently paused, states may be stale</span>
+          <span className="text-accent">; the prober has not run on schedule, so these are not current</span>
         )}
         .
       </p>

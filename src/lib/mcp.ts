@@ -1,7 +1,7 @@
 /**
  * The town's own MCP server (streamable HTTP, stateless). Any agent can mount
  * https://<site>/mcp and get: registry search, record lookup, the census, and
- * the live endpoint inspector. This is the "agents are first-class users" door.
+ * the live endpoint inspector.
  */
 import { census, listRecords } from "./census";
 import { runInspection, type InspectType } from "./inspect";
@@ -16,7 +16,7 @@ const TOOLS = [
   {
     name: "search_records",
     description:
-      "Search the Nanda Town 2 registry of agents and services. Returns listings with their latest probe observation.",
+      "Search the Nanda Town 2 registry of agents and services. Returns listings with their most recent probe observation.",
     inputSchema: {
       type: "object",
       properties: {
@@ -36,13 +36,14 @@ const TOOLS = [
   },
   {
     name: "get_census",
-    description: "Honest registry counts: listed agents/services, how many answered probes in the last 7 days, prober freshness.",
+    description:
+      "Registry counts: listed agents and services, how many answered a probe in the last 7 days, and when the prober last ran.",
     inputSchema: { type: "object", properties: {} },
   },
   {
     name: "inspect_url",
     description:
-      "Probe a live endpoint right now and get a structured report: MCP handshake + tool list, A2A agent card check, OpenAPI parse, or plain HTTP liveness. Useful to validate your own MCP server or agent card. Rate-limited.",
+      "Probe a supplied endpoint and return a structured report: MCP handshake and tool list, A2A agent card check, OpenAPI parse, or HTTP response. Rate-limited.",
     inputSchema: {
       type: "object",
       properties: {
@@ -149,7 +150,7 @@ export async function handleMcpMessage(msg: Rpc, allowInspect: () => boolean): P
         capabilities: { tools: {} },
         serverInfo: { name: "nanda-town-2", title: "Nanda Town 2 Registry", version: "0.1.0" },
         instructions:
-          "Registry + live inspector for the internet of agents. search_records/get_record to discover listed agents and services with their probe evidence; inspect_url to probe any endpoint (including your own) right now. Every result is one scoped observation, not a certificate.",
+          "A registry of AI agents and agent-facing services. Use search_records and get_record to look up listings and their probe history, and inspect_url to probe a supplied endpoint. Each probe result describes one request at one time; the registry does not score or certify listings.",
       });
     case "ping":
       return ok(msg.id, {});

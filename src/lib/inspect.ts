@@ -52,7 +52,7 @@ export async function runInspection(targetUrl: string, type: InspectType): Promi
     observer: observerId(),
     observedAt: new Date().toISOString(),
     outcomes,
-    note: "One scoped observation at one time by one observer. Not a certificate, an endorsement, or an uptime claim.",
+    note: "This report describes one request made at one time by one observer. It is not an assessment of the service's security, reliability, or availability.",
   };
 
   await db.insert(schema.inspections).values({

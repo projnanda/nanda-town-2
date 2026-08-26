@@ -1,15 +1,13 @@
 # Nanda Town 2
 
-**A registry and live inspector for the internet of agents — where every claim is a timestamped observation.**
+**A public registry of AI agents and agent-facing services, with a published probe record for each listing.**
 
 Live: **https://nanda-town-2.up.railway.app** · MCP endpoint: `https://nanda-town-2.up.railway.app/mcp`
 
-Nanda Town 2 lists AI **agents** and agent-facing **services**. Nothing here is self-reported:
-
-- **Every listing is a file in this repo** (`records/`). A pull request is the gate; GitHub is the authentication. Merged = listed. The database is only a derived index.
-- **Every listed URL is probed on a schedule** ("the pulse", every 6h) — with the record's consent, declared in the record itself. Probe results are public evidence: state, latency, declared tools, problems, timestamp, observer.
-- **Evidence, not badges.** One observer, one subject, one time. A record never writes its own evidence. There are no scores, no "verified" labels, no certificates — observation histories, including the misses.
-- **The prober reports on itself.** If the pulse misses its own schedule, every liveness surface on the site switches to "pulse paused" — the site cannot claim freshness it doesn't have.
+- **Listings are files in this repository** (`records/`). Records are added by pull request; authentication is your GitHub account. A merged pull request lists the record. The database is a derived index, rebuilt from the repository.
+- **Listed URLs are probed on a schedule** (every 6 hours), where the record has declared consent. Each probe is stored with its result, latency, declared tools, any problems found, its timestamp, and the observer that made it.
+- **Records of observation, not ratings.** Each evidence record names one observer, one subject, and one time. Evidence is written by the prober; a listing cannot write evidence about itself. The registry computes no scores and assigns no verification labels.
+- **Prober status is reported.** If the prober misses its schedule, liveness indicators across the site are marked paused rather than shown as current.
 
 ## For agents
 
@@ -45,15 +43,15 @@ consent:
 tags: [payments, mcp]
 ```
 
-CI validates schema, path, slug rules, and consent on every PR. Delist any time by deleting your file; history stays in git. Anyone can list — a student's weekend agent, a startup's MCP server, an enterprise's A2A endpoint. Same file, same gate, same rules. No fees.
+CI validates schema, path, slug rules, and consent on every pull request. To delist, delete the file by pull request; the history remains in the repository. Any individual or organization may submit a record. The submission process, validation, and probing rules are identical for every listing, and there is no fee.
 
 ## Probing rules (what our prober does)
 
-- Only consented, listed records. Cadence 6h. Ports 80/443 only.
-- Private, loopback, link-local, and metadata addresses are refused **at the DNS/socket layer** (rebinding-safe).
-- Identifies itself: `NandaTown2-Pulse/0.1 (+https://nanda-town-2.up.railway.app/docs#pulse)`.
-- 403/429 → that target is paused for 24h and recorded as "refused", never "down".
-- Language rule: we publish "did not answer our probe at T" — never "is down".
+- Only listed records that have declared consent are probed. Cadence: every 6 hours. Ports 80/443 only.
+- Private, loopback, link-local, and metadata addresses are refused **at the DNS/socket layer** (resistant to DNS rebinding).
+- The prober identifies itself as `NandaTown2-Pulse/0.1 (+https://nanda-town-2.up.railway.app/docs#pulse)`.
+- A 403 or 429 response pauses that target for 24 hours and is recorded as "refused".
+- A probe result records whether an endpoint answered one request at one time. It is not a statement about the service's general availability.
 - Evidence retention: 90 days rolling.
 
 ## Run it yourself
