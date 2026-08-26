@@ -31,6 +31,7 @@ const nav = [
   { href: "/#inspect", label: "Inspect" },
   { href: "/list", label: "Open a plot" },
   { href: "/docs", label: "Docs" },
+  { href: "/methods", label: "Methods" },
   { href: "/status", label: "Status" },
 ] as const;
 

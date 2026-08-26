@@ -165,6 +165,18 @@ export async function reconcile(parsed: ParsedFile[], source: string): Promise<{
 
   for (const { record } of valid) {
     const fp = fingerprint(record);
+    // Version history: one row per (slug, fingerprint) ever seen. The unique
+    // index makes this idempotent across reconciles.
+    await db
+      .insert(schema.recordHistory)
+      .values({
+        recordSlug: record.slug,
+        fingerprint: fp,
+        name: record.name,
+        kind: record.kind,
+        source,
+      })
+      .onConflictDoNothing();
     await db
       .insert(schema.records)
       .values({

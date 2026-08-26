@@ -7,6 +7,7 @@ import {
   serial,
   integer,
   index,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 
 // Listings. Source of truth is the records/ directory in the git repo;
@@ -46,6 +47,26 @@ export const evidence = pgTable(
   (t) => [
     index("evidence_record_idx").on(t.recordSlug, t.observedAt),
     index("evidence_type_idx").on(t.type),
+  ],
+);
+
+// Version history: one row per (slug, fingerprint) pair ever observed in the
+// records repo. Appended during reconcile when a record's fingerprint changes,
+// so "which exact version of this record was listed when" stays answerable.
+export const recordHistory = pgTable(
+  "record_history",
+  {
+    id: serial("id").primaryKey(),
+    recordSlug: text("record_slug").notNull(),
+    fingerprint: text("fingerprint").notNull(),
+    name: text("name").notNull(),
+    kind: text("kind").notNull(),
+    source: text("source").notNull(),
+    seenAt: timestamp("seen_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index("record_history_slug_idx").on(t.recordSlug, t.seenAt),
+    uniqueIndex("record_history_slug_fp_idx").on(t.recordSlug, t.fingerprint),
   ],
 );
 

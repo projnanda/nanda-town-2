@@ -6,6 +6,7 @@ owner:
   github: projnanda
 entry:
   mcp_url: https://nanda-town-2.up.railway.app/mcp
+  openapi_url: https://nanda-town-2.up.railway.app/api/openapi.json
   http_url: https://nanda-town-2.up.railway.app/api/town/census
   repo: https://github.com/projnanda/nanda-town-2
 consent:

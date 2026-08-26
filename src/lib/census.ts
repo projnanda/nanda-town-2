@@ -83,3 +83,62 @@ export async function listRecords(kind?: "agent" | "service"): Promise<RecordWit
     lastLiveness: (r.last_liveness ?? null) as RecordWithLiveness["lastLiveness"],
   }));
 }
+
+export interface RecordStats {
+  slug: string;
+  windowDays: number;
+  liveness: {
+    total: number;
+    answered: number;
+    answeredRate: number | null; // null when n = 0; never a fabricated 0%
+    medianLatencyMs: number | null;
+  };
+  firstObservedAt: string | null;
+  lastObservedAt: string | null;
+  lastState: string | null;
+}
+
+/**
+ * Summary statistics for one record over a window. Reports n alongside every
+ * rate so a percentage is never shown without its sample size; returns null
+ * rather than 0% when there is no data.
+ */
+export async function recordStats(slug: string, windowDays = 30): Promise<RecordStats | null> {
+  const [rec] = await db.select().from(schema.records).where(eq(schema.records.slug, slug));
+  if (!rec || rec.status !== "listed") return null;
+  const rows = await db.execute(sql`
+    select
+      count(*)::int as total,
+      count(*) filter (where outcome->>'state' = 'answered')::int as answered,
+      percentile_cont(0.5) within group (
+        order by (outcome->>'latencyMs')::float
+      ) filter (where outcome->>'state' = 'answered' and outcome->>'latencyMs' is not null) as median_latency,
+      min(observed_at) as first_at,
+      max(observed_at) as last_at
+    from evidence
+    where record_slug = ${slug} and type = 'liveness'
+      and observed_at > now() - (${windowDays} || ' days')::interval
+  `);
+  const r = (rows.rows[0] ?? {}) as Record<string, unknown>;
+  const total = Number(r.total ?? 0);
+  const answered = Number(r.answered ?? 0);
+  const [last] = await db
+    .select()
+    .from(schema.evidence)
+    .where(and(eq(schema.evidence.recordSlug, slug), eq(schema.evidence.type, "liveness")))
+    .orderBy(sql`observed_at desc`)
+    .limit(1);
+  return {
+    slug,
+    windowDays,
+    liveness: {
+      total,
+      answered,
+      answeredRate: total > 0 ? answered / total : null,
+      medianLatencyMs: r.median_latency != null ? Math.round(Number(r.median_latency)) : null,
+    },
+    firstObservedAt: r.first_at ? new Date(String(r.first_at)).toISOString() : null,
+    lastObservedAt: r.last_at ? new Date(String(r.last_at)).toISOString() : null,
+    lastState: last ? String((last.outcome as Record<string, unknown>).state) : null,
+  };
+}

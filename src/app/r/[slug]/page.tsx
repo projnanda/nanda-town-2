@@ -4,6 +4,8 @@ import { db, schema } from "@/db/client";
 import { pulseStatus } from "@/lib/pulse";
 import { isValidSlug } from "@/lib/records";
 import { OutcomeCard, StateDot, timeAgo } from "@/components/town";
+import { ProbeButton } from "@/components/probe-button";
+import { recordStats } from "@/lib/census";
 import type { ProbeOutcome } from "@/lib/probes";
 
 export const dynamic = "force-dynamic";
@@ -14,7 +16,7 @@ export default async function RecordPage({ params }: { params: Promise<{ slug: s
   const [rec] = await db.select().from(schema.records).where(eq(schema.records.slug, slug));
   if (!rec || rec.status !== "listed") notFound();
 
-  const [ev, pulse] = await Promise.all([
+  const [ev, pulse, stats, versions] = await Promise.all([
     db
       .select()
       .from(schema.evidence)
@@ -22,6 +24,11 @@ export default async function RecordPage({ params }: { params: Promise<{ slug: s
       .orderBy(desc(schema.evidence.observedAt))
       .limit(40),
     pulseStatus(),
+    recordStats(slug, 30),
+    db
+      .select({ id: schema.recordHistory.id })
+      .from(schema.recordHistory)
+      .where(eq(schema.recordHistory.recordSlug, slug)),
   ]);
 
   const liveness = ev.filter((e) => e.type === "liveness");
@@ -55,6 +62,41 @@ export default async function RecordPage({ params }: { params: Promise<{ slug: s
         <span>updated {timeAgo(rec.updatedAt)}</span>
         {rec.tags.length > 0 && <span>tags: {rec.tags.join(", ")}</span>}
       </div>
+
+      {rec.consentProbes && (
+        <section className="mt-6 flex flex-wrap items-end gap-x-8 gap-y-4">
+          {stats && stats.liveness.total > 0 ? (
+            <>
+              <div className="flex flex-col gap-0.5">
+                <span className="mono text-lg font-medium tabular-nums">
+                  {stats.liveness.answeredRate != null
+                    ? `${Math.round(stats.liveness.answeredRate * 100)}%`
+                    : "—"}
+                </span>
+                <span className="survey-label">
+                  answered · {stats.liveness.answered}/{stats.liveness.total} · {stats.windowDays}d
+                </span>
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <span className="mono text-lg font-medium tabular-nums">
+                  {stats.liveness.medianLatencyMs != null ? `${stats.liveness.medianLatencyMs}ms` : "—"}
+                </span>
+                <span className="survey-label">median latency</span>
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-col gap-0.5">
+              <span className="mono text-lg font-medium">—</span>
+              <span className="survey-label">no observations in window</span>
+            </div>
+          )}
+          <div className="flex flex-col gap-0.5">
+            <span className="mono text-lg font-medium tabular-nums">{versions.length}</span>
+            <span className="survey-label">record version{versions.length === 1 ? "" : "s"}</span>
+          </div>
+          <ProbeButton slug={rec.slug} />
+        </section>
+      )}
 
       {/* entry / how to reach it */}
       <section className="mt-8">

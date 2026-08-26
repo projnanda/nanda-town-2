@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use Nanda Town 2 or its evidence data, please cite it."
+title: "Nanda Town 2: A public registry of AI agents and services with scheduled probe evidence"
+abstract: >-
+  Nanda Town 2 is an open registry in which each listing is a version-controlled
+  record and each declared endpoint is probed on a schedule. Every probe is
+  stored as an evidence record naming one observer, one subject, and one time.
+  The registry publishes observation histories rather than scores or
+  verification labels, and exports all evidence for independent recomputation.
+authors:
+  - name: "Project NANDA"
+    website: "https://github.com/projnanda"
+repository-code: "https://github.com/projnanda/nanda-town-2"
+url: "https://nanda-town-2.up.railway.app"
+license: Apache-2.0
+keywords:
+  - AI agents
+  - service registry
+  - Model Context Protocol
+  - agent interoperability
+  - liveness monitoring
