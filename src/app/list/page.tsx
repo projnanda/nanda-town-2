@@ -149,10 +149,10 @@ export default function ListPage() {
         <div className="space-y-4">
           <div className="illus aspect-[16/7] hidden lg:block">
             <Image
-              src="/illustrations/img_05_marketplace.jpg"
-              alt="Ink-and-wash drawing of a marketplace of connected stalls"
-              width={1000}
-              height={440}
+              src="/illustrations/open-plots.jpg"
+              alt="Watercolor patchwork of parcels, most empty, one outlined in dashed rust ink waiting to be claimed"
+              width={1200}
+              height={1200}
             />
           </div>
           <div>

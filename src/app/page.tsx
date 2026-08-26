@@ -48,10 +48,10 @@ export default async function Home() {
           </div>
           <div className="illus aspect-[4/5] max-h-[440px] hidden sm:block">
             <Image
-              src="/illustrations/img_01_home_hero.jpg"
-              alt="Ink-and-wash drawing of a network: rust threads converging at nodes on cream paper"
-              width={1120}
-              height={1400}
+              src="/illustrations/rooftops.jpg"
+              alt="Abstract watercolor rooftops in ochre and sienna with one glowing terracotta window"
+              width={1200}
+              height={1500}
               priority
             />
           </div>
@@ -127,10 +127,10 @@ export default async function Home() {
           <div className="grid lg:grid-cols-[0.9fr_2fr] gap-6 items-stretch">
             <div className="illus hidden lg:block">
               <Image
-                src="/illustrations/img_03_constellations.jpg"
-                alt="Ink constellation drawing: nodes joined by fine rust lines"
-                width={900}
-                height={1100}
+                src="/illustrations/town-square.jpg"
+                alt="Watercolor circles gathered in a ring around an open plaza of empty paper"
+                width={1200}
+                height={1200}
               />
             </div>
             <div>
@@ -171,6 +171,18 @@ export default async function Home() {
                 </a>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* the town at dusk — closing image */}
+        <section className="pb-12">
+          <div className="illus aspect-[16/6]">
+            <Image
+              src="/illustrations/town-dusk.jpg"
+              alt="Abstract village at dusk: umber gabled silhouettes with small glowing orange windows"
+              width={1600}
+              height={900}
+            />
           </div>
         </section>
 

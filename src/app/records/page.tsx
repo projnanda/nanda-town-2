@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { census, listRecords } from "@/lib/census";
 import { RecordCard } from "@/components/town";
 
@@ -37,7 +38,16 @@ export default async function RecordsPage({
         .
       </p>
 
-      <div className="flex gap-2 mt-5 mb-6">
+      <div className="illus aspect-[16/4] mt-6">
+        <Image
+          src="/illustrations/main-street.jpg"
+          alt="Abstract row of storefront façades in cream and terracotta on a charcoal baseline"
+          width={1600}
+          height={900}
+        />
+      </div>
+
+      <div className="flex gap-2 mt-6 mb-6">
         {tab("/records", "all", !kind)}
         {tab("/records?kind=agent", `agents · ${c.agents}`, kind === "agent")}
         {tab("/records?kind=service", `services · ${c.services}`, kind === "service")}

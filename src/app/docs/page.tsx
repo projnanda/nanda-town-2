@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export const dynamic = "force-static";
 
 function Code({ children }: { children: string }) {
@@ -25,6 +27,14 @@ export default function DocsPage() {
           </a>{" "}
           — the database here is a derived index.
         </p>
+        <div className="illus aspect-[16/5] mt-5">
+          <Image
+            src="/illustrations/post-office.jpg"
+            alt="Abstract folded envelopes gliding along fine rust ink lines from a terracotta square"
+            width={1600}
+            height={900}
+          />
+        </div>
       </div>
 
       <section className="space-y-3">

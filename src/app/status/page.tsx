@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { desc } from "drizzle-orm";
 import { db, schema } from "@/db/client";
 import { PULSE_INTERVAL_MS, pulseStatus } from "@/lib/pulse";
@@ -19,6 +20,15 @@ export default async function StatusPage() {
         The town&apos;s own vitals, reported with the same rules it applies to everyone else. If
         the pulse is paused, every liveness indicator on this site says so.
       </p>
+
+      <div className="illus aspect-[16/5] mt-5">
+        <Image
+          src="/illustrations/pulse.jpg"
+          alt="A single rust ink line rising into heartbeat peaks, stitching through small watercolor houses"
+          width={1600}
+          height={900}
+        />
+      </div>
 
       <div className="parcel p-5 mt-6 flex flex-wrap gap-x-10 gap-y-4 items-end">
         <div>
