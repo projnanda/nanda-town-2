@@ -1,0 +1,12 @@
+slug: atlas-identity
+kind: service
+name: "Atlas Identity & Registry"
+summary: "Identity and discovery for agents: register a name, endpoint, and public key, and resolve other agents. A reference identity + registry layer."
+owner:
+  github: nadia-atlas
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/atlas-identity
+  openapi_url: https://town-agents.up.railway.app/openapi/atlas-identity
+consent:
+  probes: true
+tags: [identity, registry, discovery, infra]

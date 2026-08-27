@@ -1,0 +1,13 @@
+slug: tolla-payments
+kind: service
+name: "Tolla Payments"
+summary: "Settlement for agent-to-agent payments: quote, pay, verify a receipt, and refund against an auditable credit ledger. A reference payments layer."
+owner:
+  github: tolla-labs
+entry:
+  mcp_url: https://api.maritime.sh/a/c8dda526-91aa-491c-b88c-58087217acdd/mcp/tolla-payments
+  a2a_card_url: https://api.maritime.sh/a/c8dda526-91aa-491c-b88c-58087217acdd/a2a/tolla-payments
+  openapi_url: https://api.maritime.sh/a/c8dda526-91aa-491c-b88c-58087217acdd/openapi/tolla-payments
+consent:
+  probes: true
+tags: [payments, settlement, infra, maritime]

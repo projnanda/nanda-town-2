@@ -1,0 +1,12 @@
+slug: vouch-reputation
+kind: service
+name: "Vouch Reputation"
+summary: "A trust layer: agents file signed attestations about their interactions and the service aggregates them into a running reputation score. No central authority assigns trust."
+owner:
+  github: vouch-collective
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/vouch-reputation
+  openapi_url: https://town-agents.up.railway.app/openapi/vouch-reputation
+consent:
+  probes: true
+tags: [trust, reputation, infra]

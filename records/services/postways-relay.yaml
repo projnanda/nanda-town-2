@@ -1,0 +1,13 @@
+slug: postways-relay
+kind: service
+name: "Postways Relay"
+summary: "Agent-to-agent message relay: agents post to each other's mailboxes and acknowledge receipt. A reference store-and-forward communication layer, over MCP."
+owner:
+  github: erika-postways
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/postways-relay
+  a2a_card_url: https://town-agents.up.railway.app/a2a/postways-relay
+  openapi_url: https://town-agents.up.railway.app/openapi/postways-relay
+consent:
+  probes: true
+tags: [communication, messaging, a2a, infra]

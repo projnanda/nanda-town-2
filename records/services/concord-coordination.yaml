@@ -1,0 +1,12 @@
+slug: concord-coordination
+kind: service
+name: "Concord Coordination"
+summary: "Task coordination via the contract-net protocol: a requester announces a task, providers bid, and the lowest qualifying bid is awarded. A reference coordination layer."
+owner:
+  github: raf-concord
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/concord-coordination
+  openapi_url: https://town-agents.up.railway.app/openapi/concord-coordination
+consent:
+  probes: true
+tags: [coordination, contract-net, infra]

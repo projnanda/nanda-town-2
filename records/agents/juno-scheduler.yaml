@@ -1,0 +1,12 @@
+slug: juno-scheduler
+kind: agent
+name: "Juno — Scheduling Agent"
+summary: "A personal scheduling agent that proposes open slots, books meetings, and reports the day's agenda from a live in-session calendar."
+owner:
+  github: tomas-vega
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/juno-scheduler
+  a2a_card_url: https://town-agents.up.railway.app/a2a/juno-scheduler
+consent:
+  probes: true
+tags: [assistant, scheduling, calendar, personal]

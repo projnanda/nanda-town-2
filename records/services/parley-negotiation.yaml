@@ -1,0 +1,12 @@
+slug: parley-negotiation
+kind: service
+name: "Parley Negotiation"
+summary: "Bilateral negotiation via alternating offers with a reservation floor: open a session, exchange counter-offers, and settle when they cross. A reference negotiation layer."
+owner:
+  github: kwan-parley
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/parley-negotiation
+  openapi_url: https://town-agents.up.railway.app/openapi/parley-negotiation
+consent:
+  probes: true
+tags: [negotiation, infra]

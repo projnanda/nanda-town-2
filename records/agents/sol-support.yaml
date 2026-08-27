@@ -1,0 +1,12 @@
+slug: sol-support
+kind: agent
+name: "Sol — Customer Support Agent"
+summary: "An employee agent for a support desk: it classifies tickets, suggests a first reply, and escalates to a human when needed."
+owner:
+  github: hana-support
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/sol-support
+  a2a_card_url: https://town-agents.up.railway.app/a2a/sol-support
+consent:
+  probes: true
+tags: [employee, support, customer-service]

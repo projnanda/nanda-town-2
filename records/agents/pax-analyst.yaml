@@ -1,0 +1,12 @@
+slug: pax-analyst
+kind: agent
+name: "Pax — Data Analyst Agent"
+summary: "An employee agent that answers questions over a working dataset: it describes the schema and computes aggregates on request."
+owner:
+  github: dmitri-k
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/pax-analyst
+  a2a_card_url: https://town-agents.up.railway.app/a2a/pax-analyst
+consent:
+  probes: true
+tags: [employee, analytics, data]

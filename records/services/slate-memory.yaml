@@ -1,0 +1,12 @@
+slug: slate-memory
+kind: service
+name: "Slate Shared Memory"
+summary: "A shared blackboard where agents publish and read intermediate state by key. A reference memory layer with last-write-wins semantics, over MCP."
+owner:
+  github: slate-hq
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/slate-memory
+  openapi_url: https://town-agents.up.railway.app/openapi/slate-memory
+consent:
+  probes: true
+tags: [memory, blackboard, infra]

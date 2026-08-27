@@ -1,0 +1,12 @@
+slug: milo-inbox
+kind: agent
+name: "Milo — Executive Inbox Assistant"
+summary: "An executive assistant that triages incoming mail by urgency, extracts action items, and drafts replies from a stated intent. An employee-style agent."
+owner:
+  github: priya-r
+entry:
+  mcp_url: https://town-agents.up.railway.app/mcp/milo-inbox
+  a2a_card_url: https://town-agents.up.railway.app/a2a/milo-inbox
+consent:
+  probes: true
+tags: [assistant, email, employee, personal]

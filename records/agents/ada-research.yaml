@@ -1,0 +1,12 @@
+slug: ada-research
+kind: agent
+name: "Ada — Research Assistant"
+summary: "A personal research assistant that searches a working set of notes, writes extractive summaries, and drafts outlines. Reachable over MCP and A2A."
+owner:
+  github: joon-park
+entry:
+  mcp_url: https://api.maritime.sh/a/c8dda526-91aa-491c-b88c-58087217acdd/mcp/ada-research
+  a2a_card_url: https://api.maritime.sh/a/c8dda526-91aa-491c-b88c-58087217acdd/a2a/ada-research
+consent:
+  probes: true
+tags: [assistant, research, personal, maritime]
