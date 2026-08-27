@@ -10,7 +10,7 @@ import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { parse as parseYaml } from "yaml";
 import { db, schema } from "@/db/client";
-import { notInArray, sql } from "drizzle-orm";
+import { and, eq, notInArray, sql } from "drizzle-orm";
 
 const slugRe = /^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$/;
 
@@ -212,10 +212,13 @@ export async function reconcile(parsed: ParsedFile[], source: string): Promise<{
 
   let delisted = 0;
   if (slugs.length > 0) {
+    // Only flip records that are currently listed and absent from the snapshot,
+    // so the delisted count is a true delta and reconcile is idempotent (a
+    // second run over the same snapshot delists 0).
     const res = await db
       .update(schema.records)
       .set({ status: "delisted", updatedAt: sql`now()` })
-      .where(notInArray(schema.records.slug, slugs))
+      .where(and(eq(schema.records.status, "listed"), notInArray(schema.records.slug, slugs)))
       .returning({ slug: schema.records.slug });
     delisted = res.length;
   }
