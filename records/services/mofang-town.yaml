@@ -1,0 +1,11 @@
+slug: mofang-town
+kind: service
+name: "MoFang Town (self-hosted nandatown coordinator)"
+summary: "Self-hosted nandatown coordinator on a family-owned Jetson Orin NX behind Cloudflare. Home and clinic agents rendezvous here from different networks; runs are admin- and token-fenced."
+owner:
+  github: FelixFtch
+entry:
+  http_url: https://town.mofangpi.net/health
+consent:
+  probes: true
+tags: [town, coordinator, relay, self-hosted]
