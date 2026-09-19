@@ -1,0 +1,11 @@
+slug: mofang-jarvis
+kind: agent
+name: "Jarvis - MoFang HomeHub Agent"
+summary: "Sovereign home agent on a family Jetson: answers from physically separated per-member databases, controls the home, and relays whitelisted questions to a partner clinic agent over NANDA Town."
+owner:
+  github: FelixFtch
+entry:
+  a2a_card_url: https://hub-api.mofangpi.net/a2a/card
+consent:
+  probes: true
+tags: [home, sovereign, privacy, scheduling, a2a]
