@@ -1,0 +1,12 @@
+slug: quietforge-docs-api
+kind: service
+name: "Quietforge Docs API (x402)"
+summary: "Pay-per-call HTTP APIs paid in USDC on Base via x402, no signup: document conversion, PDF text extraction, URL/HTML rendering, an x402 service index, a sudoku generator and a book typesetter."
+owner:
+  github: quietforgestudio
+entry:
+  openapi_url: https://qf-api.quietforge-studio.workers.dev/openapi.json
+  http_url: https://qf-api.quietforge-studio.workers.dev/.well-known/x402.json
+consent:
+  probes: true
+tags: [x402, payments, documents, pdf, api]
