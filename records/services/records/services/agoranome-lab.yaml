@@ -1,0 +1,10 @@
+slug: my-record
+kind: service
+name: "My thing"
+summary: "One plain sentence about what this is."
+owner:
+  github: your-github-username
+entry:
+  mcp_url: https://example.com/mcp
+consent:
+  probes: true
