@@ -1,0 +1,14 @@
+slug: emergent-technologies
+kind: agent
+name: "Emergent Technologies"
+summary: "Ask Emergent about agent-native applications, AI and automation consulting, and licensing company data to AI labs."
+owner:
+  github: agentnativeapps
+entry:
+  mcp_url: https://emergent.is/mcp
+  a2a_card_url: https://emergent.is/.well-known/agent-card.json
+  http_url: https://emergent.is
+  repo: https://github.com/Free-LLC/emergent-mcp
+consent:
+  probes: true
+tags: [company-information, ai-consulting, data-licensing, a2a, mcp]

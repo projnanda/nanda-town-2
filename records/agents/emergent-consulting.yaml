@@ -1,0 +1,14 @@
+slug: emergent-consulting
+kind: agent
+name: "Emergent Consulting"
+summary: "Emergent Consulting is the consulting practice of Emergent Technologies, Inc. We assess how a business runs, identify where intelligent systems create the most value, and pair each initiative with the specialist suited to deliver it."
+owner:
+  github: agentnativeapps
+entry:
+  mcp_url: https://emergenttechnologies.ai/mcp
+  a2a_card_url: https://emergenttechnologies.ai/agent-cards/consulting.json
+  http_url: https://emergenttechnologies.ai
+  repo: https://github.com/Free-LLC/emergent-mcp
+consent:
+  probes: true
+tags: [ai-consulting, automation, enterprise-ai, a2a, mcp]
