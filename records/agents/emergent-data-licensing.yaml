@@ -1,0 +1,14 @@
+slug: emergent-data-licensing
+kind: agent
+name: "Emergent Data Licensing"
+summary: "Emergent Data Licensing represents companies licensing their institutional knowledge to leading labs."
+owner:
+  github: agentnativeapps
+entry:
+  mcp_url: https://emergenttechnologies.ai/mcp
+  a2a_card_url: https://emergenttechnologies.ai/agent-cards/data-licensing.json
+  http_url: https://emergenttechnologies.ai/data-licensing
+  repo: https://github.com/Free-LLC/emergent-mcp
+consent:
+  probes: true
+tags: [data-licensing, ai-training-data, payout-estimate, a2a, mcp]
