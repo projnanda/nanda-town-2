@@ -1,0 +1,11 @@
+slug: stream-presence
+kind: agent
+name: "Stream Presence"
+summary: "A2A agent issuing signed Ed25519 action receipts and binding approvals, with free receipt verification, issuer-standing checks, audit packs, specialist introductions, and instant quotes."
+owner:
+  github: streampresence
+entry:
+  a2a_card_url: https://stream-presence-pow.onrender.com/.well-known/agent-card.json
+consent:
+  probes: true
+tags: [receipts, verification, trust, quote, a2a]

@@ -1,0 +1,11 @@
+slug: mcp-toolprint
+kind: service
+name: "MCP Toolprint"
+summary: "MCP server maintaining toolprints: digests of MCP tool definitions as presented to an agent. Pin a definition at approval time, then check later presentations for a match, changed fields, or an unknown print."
+owner:
+  github: streampresence
+entry:
+  mcp_url: https://stream-presence-pow.onrender.com/mcp/toolprint
+consent:
+  probes: true
+tags: [mcp, toolprint, change-detection, tools, verification]
